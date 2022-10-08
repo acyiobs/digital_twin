@@ -121,7 +121,7 @@ print('done')
 savemat('ue_relative_pos.mat', {'ue_relative_pos': pos_diff})
 savemat('real_beam_pwr.mat', {'real_beam_pwr': pwrs_array})
 
-#%% k = sum(x_i*y_i) / sum(x_i^2)
+#%% Find BS orientation: k = sum(x_i*y_i) / sum(x_i^2)
 center_ue_pos = pos_diff[center_ue, :]
 k = np.sum(center_ue_pos[:, 1] * center_ue_pos[:, 0]) / np.sum(center_ue_pos[:, 0] * center_ue_pos[:, 0])
 BS_oreientation = np.arctan(k) / np.pi*180
