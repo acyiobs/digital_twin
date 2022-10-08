@@ -26,8 +26,8 @@ fprintf('This message is posted at date and time %s\n', datestr(now,'dd-mmm-yyyy
 %% Input parameters
 
 %--- Wireless InSite scenario name mapping parameters ---%
-scenario_read = 'DeepSenseScenario1_v2'; %Wireless InSite input scenario name
-scenario_write = 'DeepSenseScenario1_v2'; %Output scenario name
+scenario_read = 'DeepSenseScenario1_v3'; %Wireless InSite input scenario name
+scenario_write = 'DeepSenseScenario1_v3'; %Output scenario name
 
 carrier_freq = (60)*1e9; %Hz
 transmit_power = 0; %dBm

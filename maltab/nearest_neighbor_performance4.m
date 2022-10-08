@@ -1,4 +1,4 @@
-load('E:\Shuaifeng-Jiang\GitHub\digital_twin\DeepMIMOv2\deepsense_s1_synth_v2a_interval_0p1.mat');
+load('E:\Shuaifeng-Jiang\GitHub\digital_twin\DeepMIMOv2\deepsense_s1_synth_v3_interval_0p1.mat');
 load('E:\Shuaifeng-Jiang\GitHub\digital_twin\real_beam_pwr.mat');
 load('E:\Shuaifeng-Jiang\GitHub\digital_twin\ue_relative_pos.mat');
 load('E:\Shuaifeng-Jiang\GitHub\digital_twin\codebook_beams\beam_angles.mat');
@@ -40,7 +40,8 @@ synth_beam_power = all_channel * F_CB; % -> (num_synth_UE, num_subcarrier), num_
 synth_beam_power = reshape(synth_beam_power, num_synth_UE, num_subcarrier, []);
 synth_beam_power = squeeze(sum(abs(synth_beam_power).^2, 2));
 
-for UE_subsample=[1] % 1, 20, 50, 100, 200, 500
+tmp = [];
+for UE_subsample=[1] % 1:50
     %% sample the user grid
     first_grid_idx = 1:411*41;
     second_grid_idx = (411*41)+(1:51*470);
@@ -106,22 +107,40 @@ for UE_subsample=[1] % 1, 20, 50, 100, 200, 500
     end
     UE_subsample
     mean(top1_acc)
-%     topk_acc = [mean(top1_acc), mean(top2_acc), mean(top3_acc), mean(top5_acc)]
-%     topk_pwr = [mean(top1_pwr), mean(top2_pwr), mean(top3_pwr), mean(top5_pwr)]
-%     mean_idx_diff = mean(abs(idx_diff))
+    topk_acc = [mean(top1_acc), mean(top2_acc), mean(top3_acc), mean(top5_acc)]
+    topk_pwr = [mean(top1_pwr), mean(top2_pwr), mean(top3_pwr), mean(top5_pwr)]
+    mean_idx_diff = mean(abs(idx_diff))
+    
+% tmp = [tmp, mean(top1_acc)];
+end
 [~, real_best_idx] = max(real_beam_pwr, [], 2);
 [~, synth_best_idx] = max(synth_beam_power_nearest, [], 2);
 
+
+%% performance vs digital twin point interval
+% plot(1:50, tmp);
+% grid on;
+% xlabel('Digital Twin Point Interal (meter)')
+% ylabel('Top-1 Accuracy')
+
+%% best beam vs position
 figure(1);
 plot(synth_best_idx)
 hold on
 plot(real_best_idx)
 hold on
 plot(real_best_idx-synth_best_idx);
+grid on;
 legend('synthetic','real', 'diff');
 title('Synth vs. Real Datat: Optimal BS Beam Index')
 xlabel("Position Index")
 ylabel("Optimal Beam Index")
 xlim([0,200])
 
-end
+%% topk acc and pwr bar plot
+figure(2);
+bar(categorical({'Accuracy' 'Relative Power'}), [topk_acc;topk_pwr]);
+grid on;
+legend('top1', 'top2', 'top3', 'top5');
+
+

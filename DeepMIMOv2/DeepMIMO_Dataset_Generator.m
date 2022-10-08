@@ -6,7 +6,7 @@ addpath('DeepMIMO_functions')
 
 % -------------------- DeepMIMO Dataset Generation -----------------------%
 % Load Dataset Parameters
-dataset_params = read_params('parameters_DeepSenseScenario1_v2a.m');
+dataset_params = read_params('parameters_DeepSenseScenario1_v3.m');
 [DeepMIMO_dataset, dataset_params] = DeepMIMO_generator(dataset_params);
 
 % -------------------------- Output Examples -----------------------------%

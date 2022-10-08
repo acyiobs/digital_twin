@@ -47,6 +47,8 @@ for sample_idx in tqdm(range(n_samples)):
 
 #%% find best beams
 best_beams = np.argmax(pwrs_array, 1) + 1 # starts from 1
+center_beam = 28
+center_ue = np.where(best_beams==center_beam)[0]
 
 #%%
 pos_bs = np.loadtxt(os.path.join(scenario_folder, dataframe['unit1_loc'].values[0]))
@@ -62,13 +64,13 @@ for sample_idx in range(n_samples):
     pos_ue_array[sample_idx] = np.loadtxt(pos_abs_path)
 
 
-pos_ue_cart = xy_from_latlong(pos_bs)
-pos_bs_cart = xy_from_latlong(pos_ue_array)
+pos_ue_cart = xy_from_latlong(pos_ue_array)
+pos_bs_cart = xy_from_latlong(pos_bs)
 pos_diff = pos_ue_cart - pos_bs_cart
 
 # %%
-first_grid = pos_diff[pos_diff[:, 0]>-18,:]
-second_grid = pos_diff[pos_diff[:, 0]<=-18,:]
+first_grid = pos_diff[pos_diff[:, 0]<18,:]
+second_grid = pos_diff[pos_diff[:, 0]>=18,:]
 
 first_grid_max_x = first_grid[:, 0].max()
 first_grid_min_x = first_grid[:, 0].min()
@@ -113,14 +115,15 @@ width = second_grid_max_y - second_grid_min_y
 rect2 = Rectangle((x_min,y_min), height, width, linewidth=1, edgecolor='r', facecolor='none')
 plt.gca().add_patch(rect2)
 
-plt.xlim([-30, 0])
-
-plt.gca().invert_xaxis()
-plt.gca().invert_yaxis()
 plt.show()
 print('done')
 
 savemat('ue_relative_pos.mat', {'ue_relative_pos': pos_diff})
 savemat('real_beam_pwr.mat', {'real_beam_pwr': pwrs_array})
 
-# %%
+#%% k = sum(x_i*y_i) / sum(x_i^2)
+center_ue_pos = pos_diff[center_ue, :]
+k = np.sum(center_ue_pos[:, 1] * center_ue_pos[:, 0]) / np.sum(center_ue_pos[:, 0] * center_ue_pos[:, 0])
+BS_oreientation = np.arctan(k) / np.pi*180
+print("BS_oreientation: " + str(BS_oreientation) + " (degree)")
+print('done')

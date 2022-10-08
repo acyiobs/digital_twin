@@ -1,130 +1,130 @@
-2022.10.08 01:42:28.772 
+2022.10.08 04:11:49.041 
 
 wibatch version 3.3.0.4 - r60227
   Built with Microsoft Visual Studio 1900
   Built with Qt 4.8.7
   Using Qt 4.8.7
 
-2022.10.08 01:42:28.773 Sat Oct 8 01:42:28 2022
+2022.10.08 04:11:49.043 Sat Oct 8 04:11:49 2022
 
-2022.10.08 01:42:39.235 Detecting GPU Information..
-2022.10.08 01:42:39.235 OptiX Runtime version = 40100
-2022.10.08 01:42:39.235 CUDA Runtime version = 8.0
-2022.10.08 01:42:39.235 CUDA Driver version  = 11.6
-2022.10.08 01:42:39.235 GPU device #0: [NVIDIA TITAN RTX], 7.5 capability, 72 total cores, 1024 threads per block
-2022.10.08 01:42:39.235 GPU device #1: [NVIDIA TITAN RTX], 7.5 capability, 72 total cores, 1024 threads per block
-2022.10.08 01:42:39.235 GPU device #2: [NVIDIA TITAN RTX], 7.5 capability, 72 total cores, 1024 threads per block
-2022.10.08 01:42:39.235 GPU device #3: [NVIDIA TITAN RTX], 7.5 capability, 72 total cores, 1024 threads per block
-2022.10.08 01:42:39.392 Initializing Wireless InSite X3D model
-2022.10.08 01:42:39.392 Monte Carlo parameters not detected.
-2022.10.08 01:42:39.393 ============ GEOMETRY ============
-2022.10.08 01:42:39.393 Building geometry
-2022.10.08 01:42:39.393  ============ TRANSMITTER/RECEIVER SETS ============
-2022.10.08 01:42:39.393 Generating transmitter and receiver sets
-2022.10.08 01:42:39.411 Antenna: Isotropic
+2022.10.08 04:11:59.167 Detecting GPU Information..
+2022.10.08 04:11:59.167 OptiX Runtime version = 40100
+2022.10.08 04:11:59.167 CUDA Runtime version = 8.0
+2022.10.08 04:11:59.167 CUDA Driver version  = 11.6
+2022.10.08 04:11:59.167 GPU device #0: [NVIDIA TITAN RTX], 7.5 capability, 72 total cores, 1024 threads per block
+2022.10.08 04:11:59.167 GPU device #1: [NVIDIA TITAN RTX], 7.5 capability, 72 total cores, 1024 threads per block
+2022.10.08 04:11:59.167 GPU device #2: [NVIDIA TITAN RTX], 7.5 capability, 72 total cores, 1024 threads per block
+2022.10.08 04:11:59.167 GPU device #3: [NVIDIA TITAN RTX], 7.5 capability, 72 total cores, 1024 threads per block
+2022.10.08 04:11:59.325 Initializing Wireless InSite X3D model
+2022.10.08 04:11:59.325 Monte Carlo parameters not detected.
+2022.10.08 04:11:59.325 ============ GEOMETRY ============
+2022.10.08 04:11:59.325 Building geometry
+2022.10.08 04:11:59.326  ============ TRANSMITTER/RECEIVER SETS ============
+2022.10.08 04:11:59.327 Generating transmitter and receiver sets
+2022.10.08 04:11:59.344 Antenna: Isotropic
 Cable loss (dB): 0
 Polarization: Vertical
 Power threshold (dBm): -250
 Temperature (K): 293
 VSWR: 1
 
-2022.10.08 01:42:39.411 Waveform: Sinusoid
+2022.10.08 04:11:59.344 Waveform: Sinusoid
 Amplitude: 1
 Carrier frequency (MHz): 60000
 Phase (degrees): 0
 
-2022.10.08 01:42:39.411 Bandwidth (MHz): 10
+2022.10.08 04:11:59.344 Bandwidth (MHz): 10
 Dispersive: no
 
-2022.10.08 01:42:39.411 Set number: 2
+2022.10.08 04:11:59.344 Set number: 2
 Type: GridSet
 Number of points: 16851
 APG Accelerated: no
 Fit to terrain: yes
 
-2022.10.08 01:42:39.412 Receiver collection radius (m): auto
+2022.10.08 04:11:59.344 Receiver collection radius (m): auto
 
-2022.10.08 01:42:39.412 Length (x) [m]: 4
+2022.10.08 04:11:59.344 Length (x) [m]: 4
 Length (y) [m]: 41
 Planar rotation (degrees): 0
 Spacing (m): 0.1
 
-2022.10.08 01:42:39.412 Antenna: Isotropic
+2022.10.08 04:11:59.344 Antenna: Isotropic
 Cable loss (dB): 0
 Polarization: Vertical
 Power threshold (dBm): -250
 Temperature (K): 293
 VSWR: 1
 
-2022.10.08 01:42:39.412 Waveform: Sinusoid
+2022.10.08 04:11:59.344 Waveform: Sinusoid
 Amplitude: 1
 Carrier frequency (MHz): 60000
 Phase (degrees): 0
 
-2022.10.08 01:42:39.412 Bandwidth (MHz): 10
+2022.10.08 04:11:59.344 Bandwidth (MHz): 10
 Dispersive: no
 
-2022.10.08 01:42:39.412 Set number: 3
+2022.10.08 04:11:59.345 Set number: 3
 Type: GridSet
 Number of points: 24021
 APG Accelerated: no
 Fit to terrain: yes
 
-2022.10.08 01:42:39.412 Receiver collection radius (m): auto
+2022.10.08 04:11:59.345 Receiver collection radius (m): auto
 
-2022.10.08 01:42:39.412 Length (x) [m]: 5
+2022.10.08 04:11:59.345 Length (x) [m]: 5
 Length (y) [m]: 47
 Planar rotation (degrees): 0
 Spacing (m): 0.1
 
-2022.10.08 01:42:39.412 Antenna: Isotropic
+2022.10.08 04:11:59.345 Antenna: Isotropic
 Cable loss (dB): 0
 Polarization: Vertical
 Power threshold (dBm): -250
 Temperature (K): 293
 VSWR: 1
 
-2022.10.08 01:42:39.412 Waveform: Sinusoid
+2022.10.08 04:11:59.345 Waveform: Sinusoid
 Amplitude: 1
 Carrier frequency (MHz): 60000
 Phase (degrees): 0
 
-2022.10.08 01:42:39.412 Bandwidth (MHz): 10
+2022.10.08 04:11:59.345 Bandwidth (MHz): 10
 Dispersive: no
 
-2022.10.08 01:42:39.413 Set number: 1
+2022.10.08 04:11:59.345 Set number: 1
 Type: PointSet
 Number of points: 1
 APG Accelerated: no
 Fit to terrain: yes
 
-2022.10.08 01:42:39.413 Receiver collection radius (m): auto
+2022.10.08 04:11:59.345 Receiver collection radius (m): auto
 
-2022.10.08 01:42:39.413 Antenna: Isotropic
+2022.10.08 04:11:59.346 Antenna: Isotropic
 Cable loss (dB): 0
 Polarization: Vertical
 Power threshold (dBm): -250
 Temperature (K): 293
 VSWR: 1
 
-2022.10.08 01:42:39.413 Waveform: Sinusoid
+2022.10.08 04:11:59.346 Waveform: Sinusoid
 Amplitude: 1
 Carrier frequency (MHz): 60000
 Phase (degrees): 0
 
-2022.10.08 01:42:39.413 Bandwidth (MHz): 10
+2022.10.08 04:11:59.346 Bandwidth (MHz): 10
 Dispersive: no
 
-2022.10.08 01:42:39.413 Set number: 1
+2022.10.08 04:11:59.346 Set number: 1
 Type: PointSet
 Number of points: 1
 APG Accelerated: no
 Fit to terrain: yes
 
-2022.10.08 01:42:39.413 Receiver collection radius (m): auto
+2022.10.08 04:11:59.346 Receiver collection radius (m): auto
 
-2022.10.08 01:42:39.415 Auto Collection Radius = 0.269565
-2022.10.08 01:42:39.424 Scene information: 
+2022.10.08 04:11:59.348 Auto Collection Radius = 0.269565
+2022.10.08 04:11:59.357 Scene information: 
     Number of facets: 2
     Number of spheres: 40873
 
@@ -141,84 +141,84 @@ CompleteEdgeSet information:
     Number of subedges: 0
 Maximum Scene Distance: 123.56
 
-2022.10.08 01:42:39.424 ============ MATERIALS ============
-2022.10.08 01:42:39.424 Diffuse Scattering: Disabled
-2022.10.08 01:42:39.425 Material number: 0
+2022.10.08 04:11:59.357 ============ MATERIALS ============
+2022.10.08 04:11:59.357 Diffuse Scattering: Disabled
+2022.10.08 04:11:59.357 Material number: 0
 Type: DielectricHalfspace
 Thickness (m): 0
 
-2022.10.08 01:42:39.425 Layer 0: 
-2022.10.08 01:42:39.425     Relative permittivity: 25
+2022.10.08 04:11:59.358 Layer 0: 
+2022.10.08 04:11:59.358     Relative permittivity: 25
     Conductivity (S/m): 0.02
     Thickness (m): 0
     Roughness (m): 0
 
-2022.10.08 01:42:39.425 ============ ATMOSPHERE ============
-2022.10.08 01:42:39.425 Pressure = 1013.25
-2022.10.08 01:42:39.425 Temperature = 22.2
-2022.10.08 01:42:39.425 Humidity = 50
-2022.10.08 01:42:39.810 ============ MODEL ============
-2022.10.08 01:42:41.560 Starting X3D ray tracing for Tx set 1, point 1 (point 1 of 1 total)
-2022.10.08 01:42:41.560   Initializing 96 threads
-2022.10.08 01:42:41.560   Diffraction cone ray angle=0.25
-2022.10.08 01:42:41.560   Using 1 GPU ray tracer
-2022.10.08 01:42:41.715   Ray tracing ranges: 
-2022.10.08 01:42:41.715     Minimum phi: 0
-2022.10.08 01:42:41.715     Maximum phi: 360
-2022.10.08 01:42:41.715     Minimum theta: 0
-2022.10.08 01:42:41.715     Maximum theta: 180
-2022.10.08 01:42:41.715   Model parameters: 
-2022.10.08 01:42:41.715     Reflections:         2
-2022.10.08 01:42:41.716     Transmissions:       0
-2022.10.08 01:42:41.716     Diffractions:        1
-2022.10.08 01:42:41.716     Ray spacing (degrees): 0.25
-2022.10.08 01:42:41.718   Advanced model parameters:
-2022.10.08 01:42:41.718     Maximum reflections before first diffraction: 1
-2022.10.08 01:42:41.718     Maximum reflections between two diffractions: 0
-2022.10.08 01:42:41.718     Maximum reflections after last diffraction: 1
-2022.10.08 01:42:41.730   Detected 4 GPU devices.
-2022.10.08 01:42:41.740   Licensed 1 GPU devices.
-2022.10.08 01:42:41.740   Running on 1 GPU devices.
-2022.10.08 01:42:41.740     Device ID's: [ 0 ]
-2022.10.08 01:42:42.057   Optimized concurrent GPU rays: 65536
-2022.10.08 01:42:42.124 Initial Ray Generation: Phi/theta sweep mode
-2022.10.08 01:42:45.785   Total Number of Rays shot: 2557152
-2022.10.08 01:42:45.785   Total Number of active rays shot: 1071056
-2022.10.08 01:42:45.785   Total Initial Rays shot: 663228
-2022.10.08 01:42:45.785   Total cones: 0... cone rays shot: 0
-2022.10.08 01:42:45.785   84691 unique paths found.
+2022.10.08 04:11:59.358 ============ ATMOSPHERE ============
+2022.10.08 04:11:59.358 Pressure = 1013.25
+2022.10.08 04:11:59.358 Temperature = 22.2
+2022.10.08 04:11:59.358 Humidity = 50
+2022.10.08 04:11:59.733 ============ MODEL ============
+2022.10.08 04:12:01.453 Starting X3D ray tracing for Tx set 1, point 1 (point 1 of 1 total)
+2022.10.08 04:12:01.453   Initializing 96 threads
+2022.10.08 04:12:01.453   Diffraction cone ray angle=0.25
+2022.10.08 04:12:01.453   Using 1 GPU ray tracer
+2022.10.08 04:12:01.607   Ray tracing ranges: 
+2022.10.08 04:12:01.607     Minimum phi: 0
+2022.10.08 04:12:01.608     Maximum phi: 360
+2022.10.08 04:12:01.608     Minimum theta: 0
+2022.10.08 04:12:01.608     Maximum theta: 180
+2022.10.08 04:12:01.608   Model parameters: 
+2022.10.08 04:12:01.608     Reflections:         2
+2022.10.08 04:12:01.608     Transmissions:       0
+2022.10.08 04:12:01.608     Diffractions:        1
+2022.10.08 04:12:01.608     Ray spacing (degrees): 0.25
+2022.10.08 04:12:01.610   Advanced model parameters:
+2022.10.08 04:12:01.610     Maximum reflections before first diffraction: 1
+2022.10.08 04:12:01.610     Maximum reflections between two diffractions: 0
+2022.10.08 04:12:01.610     Maximum reflections after last diffraction: 1
+2022.10.08 04:12:01.623   Detected 4 GPU devices.
+2022.10.08 04:12:01.631   Licensed 1 GPU devices.
+2022.10.08 04:12:01.631   Running on 1 GPU devices.
+2022.10.08 04:12:01.631     Device ID's: [ 0 ]
+2022.10.08 04:12:01.958   Optimized concurrent GPU rays: 65536
+2022.10.08 04:12:02.028 Initial Ray Generation: Phi/theta sweep mode
+2022.10.08 04:12:05.626   Total Number of Rays shot: 2557152
+2022.10.08 04:12:05.626   Total Number of active rays shot: 1071056
+2022.10.08 04:12:05.626   Total Initial Rays shot: 663228
+2022.10.08 04:12:05.626   Total cones: 0... cone rays shot: 0
+2022.10.08 04:12:05.626   84691 unique paths found.
 
-2022.10.08 01:42:45.785   Calculating E-fields and generating output
+2022.10.08 04:12:05.626   Calculating E-fields and generating output
 
-2022.10.08 01:42:45.853     ============ ATMOSPHERE ============
+2022.10.08 04:12:05.698     ============ ATMOSPHERE ============
 
-2022.10.08 01:42:45.853     Frequency = 6e+10
-2022.10.08 01:42:45.853     Attenuation (db/km) = 14.1681
-2022.10.08 01:42:47.463      Paths    Channels  Database
-2022.10.08 01:42:47.463      100.00%     0.00%     0.00%
-2022.10.08 01:43:04.077      100.00%   100.00%     0.00%
-2022.10.08 01:43:04.078      100.00%   100.00%   100.00%
-2022.10.08 01:43:05.570     Original interaction chains:         84691
-2022.10.08 01:43:05.571     Interaction chains eliminated:        2946
-2022.10.08 01:43:05.571     Physical paths generated:            81745
-2022.10.08 01:43:05.571     High power paths retained:           81745
-2022.10.08 01:43:05.571     Low power paths eliminated:              0
+2022.10.08 04:12:05.698     Frequency = 6e+10
+2022.10.08 04:12:05.698     Attenuation (db/km) = 14.1681
+2022.10.08 04:12:07.308      Paths    Channels  Database
+2022.10.08 04:12:07.309      100.00%     0.00%     0.00%
+2022.10.08 04:12:23.571      100.00%   100.00%     0.00%
+2022.10.08 04:12:23.572      100.00%   100.00%   100.00%
+2022.10.08 04:12:25.096     Original interaction chains:         84691
+2022.10.08 04:12:25.096     Interaction chains eliminated:        2946
+2022.10.08 04:12:25.096     Physical paths generated:            81745
+2022.10.08 04:12:25.096     High power paths retained:           81745
+2022.10.08 04:12:25.096     Low power paths eliminated:              0
 
-2022.10.08 01:43:05.720 Total Diffraction Cones: 0
-2022.10.08 01:43:05.720 Output file location: E:\Shuaifeng-Jiang\GitHub\digital_twin\DeepSenseScenario1_v2\DeepSenseScenario1_v2/
-2022.10.08 01:43:05.720 Output prefix: DeepSenseScenario1_v2
-2022.10.08 01:43:05.791 Check for any far zone requests, non-partitioned job
+2022.10.08 04:12:25.224 Total Diffraction Cones: 0
+2022.10.08 04:12:25.224 Output file location: E:\Shuaifeng-Jiang\GitHub\digital_twin\DeepSenseScenario1_v2\DeepSenseScenario1_v2/
+2022.10.08 04:12:25.224 Output prefix: DeepSenseScenario1_v2
+2022.10.08 04:12:25.291 Check for any far zone requests, non-partitioned job
 
-2022.10.08 01:43:05.796 Writing output files
-2022.10.08 01:43:08.640 Finished writing output files
+2022.10.08 04:12:25.295 Writing output files
+2022.10.08 04:12:28.163 Finished writing output files
 
-2022.10.08 01:43:08.640 Sat Oct 8 01:43:08 2022
+2022.10.08 04:12:28.163 Sat Oct 8 04:12:28 2022
 
-2022.10.08 01:43:08.641 Geometry Processing Time: : 00:00:00.001
-2022.10.08 01:43:08.641 TxRx Set Generation Time: : 00:00:00.030
-2022.10.08 01:43:08.641 Path Discovery Time: : 00:00:04.069
-2022.10.08 01:43:08.642 Path Generation Time: : 00:00:19.784
-2022.10.08 01:43:08.642 Writing Binary Output Time: : 00:00:00.000
-2022.10.08 01:43:08.642 Writing P2M Output Time: : 00:00:02.843
+2022.10.08 04:12:28.164 Geometry Processing Time: : 00:00:00.001
+2022.10.08 04:12:28.165 TxRx Set Generation Time: : 00:00:00.030
+2022.10.08 04:12:28.165 Path Discovery Time: : 00:00:04.017
+2022.10.08 04:12:28.165 Path Generation Time: : 00:00:19.468
+2022.10.08 04:12:28.165 Writing Binary Output Time: : 00:00:00.000
+2022.10.08 04:12:28.165 Writing P2M Output Time: : 00:00:02.868
 
-2022.10.08 01:43:08.642 Total Runtime: : 00:00:39.867
+2022.10.08 04:12:28.165 Total Runtime: : 00:00:39.121

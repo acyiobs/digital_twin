@@ -1,4 +1,4 @@
-load('E:\Shuaifeng-Jiang\GitHub\digital_twin\DeepMIMOv2\deepsense_s1_synth_v2_interval_0p1.mat');
+load('E:\Shuaifeng-Jiang\GitHub\digital_twin\DeepMIMOv2\deepsense_s1_synth_v3_interval_0p1.mat');
 load('E:\Shuaifeng-Jiang\GitHub\digital_twin\real_beam_pwr.mat');
 load('E:\Shuaifeng-Jiang\GitHub\digital_twin\ue_relative_pos.mat');
 
@@ -20,9 +20,8 @@ hold on;
 %% plot BS positions
 scatter(0, 0, 120,  'X');
 grid on;
-daspect([1 1 1])
+daspect([1 1 1]);
+xlim([0 50]);
 xlabel('X-coordinates (meter)');
 ylabel('Y-coordinates (meter)');
 legend('UE grid', 'UE', 'BS');
-set(gca, 'xdir', 'reverse');
-set(gca, 'ydir', 'reverse');
