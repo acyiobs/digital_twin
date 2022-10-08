@@ -1,6 +1,6 @@
-load('deepsense_s1_synth_interval_0p1.mat');
-load('real_beam_pwr.mat')
-load('ue_relative_pos.mat')
+load('E:\Shuaifeng-Jiang\GitHub\digital_twin\DeepMIMOv2\deepsense_s1_synth_v2_interval_0p1.mat');
+load('E:\Shuaifeng-Jiang\GitHub\digital_twin\real_beam_pwr.mat');
+load('E:\Shuaifeng-Jiang\GitHub\digital_twin\ue_relative_pos.mat');
 
 figure(1);
 
@@ -24,3 +24,5 @@ daspect([1 1 1])
 xlabel('X-coordinates (meter)');
 ylabel('Y-coordinates (meter)');
 legend('UE grid', 'UE', 'BS');
+set(gca, 'xdir', 'reverse');
+set(gca, 'ydir', 'reverse');

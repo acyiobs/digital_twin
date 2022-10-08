@@ -1,5 +1,5 @@
 begin_<States> 
-2d 0
+2d 1
 ortho 1
 wireframe 0
 normals 0
@@ -20,25 +20,25 @@ zscale_factor 1
 autoCentering 1
 gridElevation 0
 autoGridElevation on
-gridspacing 0.000833333
+gridspacing 10
 gridQuadrants 0
-grid 0
+grid 1
 legend 0
 descriptions on
 description_backgrounds on
 end_<States>
 begin_<Rotations> 
-3dOrthographic 0 0 0
+3dOrthographic 43.885 0 18.3942
 3dPerspective 0 0 0
-2d 0 0 0
+2d 0 0 180
 end_<Rotations>
 begin_<Translations> 
 3dOrthographic 0 0 0
 3dPerspective 0 0 0
-2d 0 0 0
+2d 4.76837e-07 0.5 -0.025
 end_<Translations>
 begin_<Scale> 
-3dOrthographic 1 1 1
+3dOrthographic 0.865729 0.865729 1
 3dPerspective 1 1 1
-2d 1 1 1
+2d 0.9 0.9 0.9
 end_<Scale>

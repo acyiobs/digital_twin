@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import scipy.io as scipyio
 import matplotlib.pyplot as plt
+from matplotlib.patches import Rectangle
 import utm
 from scipy.io import savemat
 from tqdm import tqdm
@@ -46,8 +47,8 @@ for sample_idx in tqdm(range(n_samples)):
 
 #%% find best beams
 best_beams = np.argmax(pwrs_array, 1) + 1 # starts from 1
-center_ue = np.where(best_beams==34)[0]
-
+center_beam = 28
+center_ue = np.where(best_beams==center_beam)[0]
 
 #%%
 pos_bs = np.loadtxt(os.path.join(scenario_folder, dataframe['unit1_loc'].values[0]))
@@ -67,41 +68,8 @@ pos_ue_cart = xy_from_latlong(pos_bs)
 pos_bs_cart = xy_from_latlong(pos_ue_array)
 pos_diff = pos_ue_cart - pos_bs_cart
 
-# pos_diff = pos_diff[:,::-1]
-
-# get distances and angle from the transformed position
-dist = np.linalg.norm(pos_diff, axis=1)
-plt.scatter(pos_diff[:, 0], pos_diff[:, 1])
-plt.scatter(0, 0)
-plt.axis('equal')
-plt.xlabel('X-coordinates (meter)')
-plt.ylabel('Y-coordinates (meter)')
-# plt.ylim([-20, 0])
-plt.show()
-
-# savemat('ue_relative_pos.mat', {'ue_relative_pos': pos_diff})
-# savemat('real_beam_pwr.mat', {'real_beam_pwr': pwrs_array})
-
-# %%
-first_grid = pos_diff[pos_diff[:, 1]>-18,:]
-second_grid = pos_diff[pos_diff[:, 1]<=-18,:]
-
-first_grid_max_x = first_grid[:, 0].max()
-first_grid_min_x = first_grid[:, 0].min()
-
-first_grid_max_y = first_grid[:, 1].max()
-first_grid_min_y = first_grid[:, 1].min()
-
-first_grid_x_len = first_grid_max_x - first_grid_min_x
-first_grid_y_len = first_grid_max_y - first_grid_min_y
-
-second_grid_max_x = second_grid[:, 0].max()
-second_grid_min_x = second_grid[:, 0].min()
-
-second_grid_max_y = second_grid[:, 1].max()
-second_grid_min_y = second_grid[:, 1].min()
-
-second_grid_x_len = second_grid_max_x - second_grid_min_x
-second_grid_y_len = second_grid_max_y - second_grid_min_y
-
-print('done')
+#%% k = sum(x_i*y_i) / sum(x_i^2)
+center_ue_pos = pos_diff[center_ue, :]
+k = np.sum(center_ue_pos[:, 1] * center_ue_pos[:, 0]) / np.sum(center_ue_pos[:, 0] * center_ue_pos[:, 0])
+BS_oreientation = np.arctan(k) / np.pi*180
+print("BS_oreientation: " + str(BS_oreientation) + " (degree)")

@@ -35,10 +35,10 @@ end_<Rotations>
 begin_<Translations> 
 3dOrthographic 0 0 0
 3dPerspective 0 0 0
-2d 0.499512 -0.02532 -0.025
+2d 0.490231 -6.525 -0.025
 end_<Translations>
 begin_<Scale> 
 3dOrthographic 0.759624 0.759624 0.9
 3dPerspective 1 1 1
-2d 0.9 0.9 0.9
+2d 0.419454 0.419454 0.9
 end_<Scale>

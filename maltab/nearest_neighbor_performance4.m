@@ -1,21 +1,21 @@
-load('deepsense_s1_synth_interval_0p1.mat');
-load('real_beam_pwr.mat');
-load('ue_relative_pos.mat');
+load('E:\Shuaifeng-Jiang\GitHub\digital_twin\DeepMIMOv2\deepsense_s1_synth_v2a_interval_0p1.mat');
+load('E:\Shuaifeng-Jiang\GitHub\digital_twin\real_beam_pwr.mat');
+load('E:\Shuaifeng-Jiang\GitHub\digital_twin\ue_relative_pos.mat');
 load('E:\Shuaifeng-Jiang\GitHub\digital_twin\codebook_beams\beam_angles.mat');
 
 %% get best beam in the digital twin
 %[F_CB, all_beams] = UPA_codebook_generator_abdul(16,1,1,4,1,1,0.5);
 beam_angle_z = 90*ones(64,1);
-beam_angle_x = 180 - beam_anlges/pi*180;
+beam_angle_x = beam_anlges/pi*180;
 beam_angle = [beam_angle_z, beam_angle_x.'];
 F_CB = beam_steering_codebook2(beam_angle, 1, 16, 0);
 F_CB(:, 1) = 0;
 F_CB(:, end) = 0;
-F_CB = flip(F_CB, 2);
+% F_CB = flip(F_CB, 2);
 % F_CB = flip(F_CB, 1);
 
-F_CB = F_CB(:,1:4:64);
-real_beam_pwr = real_beam_pwr(:, 1:4:64);
+F_CB = F_CB(:,2:4:64);
+real_beam_pwr = real_beam_pwr(:, 2:4:64);
 num_beam = size(real_beam_pwr, 2);
 
 dataset_synth = DeepMIMO_dataset{1,1}.user;
@@ -32,7 +32,6 @@ synth_UE_loc = zeros(num_synth_UE, 2);
 for i=1:num_synth_UE
     all_channel(i, :, :) = dataset_synth{i}.channel;
     synth_UE_loc(i,:) = dataset_synth{i}.loc(1:2);
-    synth_UE_loc(i,1) = -synth_UE_loc(i,1);
 end
 all_channel = permute(all_channel, [1,3,2]); % -> num_synth_UE, num_subcarrier, num_tx
 
@@ -124,11 +123,5 @@ title('Synth vs. Real Datat: Optimal BS Beam Index')
 xlabel("Position Index")
 ylabel("Optimal Beam Index")
 xlim([0,200])
-
-figure(2)
-xlim([1,size(ue_relative_pos,1)])
-xlim([1,200])
-ylim([1,size(F_CB,2)])
-hold off
 
 end

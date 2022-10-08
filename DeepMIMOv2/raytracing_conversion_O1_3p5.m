@@ -25,8 +25,8 @@ clc
 %% Input parameters
 
 %--- Wireless InSite scenario name mapping parameters ---%
-scenario_read = 'DeepSenseScenario1_v1'; %Wireless InSite input scenario name
-scenario_write = 'DeepSenseScenario1_v1'; %Output scenario name
+scenario_read = 'DeepSenseScenario1_v2'; %Wireless InSite input scenario name
+scenario_write = 'DeepSenseScenario1_v2'; %Output scenario name
 
 carrier_freq = (60)*1e9; %Hz
 transmit_power = 0; %dBm
@@ -45,7 +45,7 @@ RX_grids_ID = [RX_grids_ID_user,RX_grids_ID_BS]; % Receiver ID number matching o
 %BS_RX_row_ID = [(5204:1:(5204+numel(RX_grids_ID_BS)-1));(5204:1:(5204+numel(RX_grids_ID_BS)-1));ones(1,numel(RX_grids_ID_BS))];
 BS_RX_row_ID = [(1:1:(1+numel(RX_grids_ID_BS)-1));(1:1:(1+numel(RX_grids_ID_BS)-1));ones(1,numel(RX_grids_ID_BS))];
 BS_grids=BS_RX_row_ID.'; % BS Grid Info %%%%%%%Exported directly to DeepMIMO
-user_grids=[1,41,411;42,92,470]; % User Grid Info %%%%%%%Exported directly to DeepMIMO
+user_grids=[1,411,41;412,881,51]; % User Grid Info %%%%%%%Exported directly to DeepMIMO
 RX_grids=[user_grids;BS_grids]; % ALL RX Grid Info
 
 % Each row is the information associated with each of the 3 user grids:
