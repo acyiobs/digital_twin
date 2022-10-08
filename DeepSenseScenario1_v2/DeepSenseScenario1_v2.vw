@@ -1,5 +1,5 @@
 begin_<States> 
-2d 1
+2d 0
 ortho 1
 wireframe 0
 normals 0
@@ -28,17 +28,17 @@ descriptions on
 description_backgrounds on
 end_<States>
 begin_<Rotations> 
-3dOrthographic -53.4769 0 180.264
+3dOrthographic 0 0 0
 3dPerspective 0 0 0
-2d 0 0 -179.107
+2d 0 0 0
 end_<Rotations>
 begin_<Translations> 
 3dOrthographic 0 0 0
 3dPerspective 0 0 0
-2d 0.499512 -0.02532 -0.025
+2d 0 0 0
 end_<Translations>
 begin_<Scale> 
-3dOrthographic 0.759624 0.759624 0.9
+3dOrthographic 1 1 1
 3dPerspective 1 1 1
-2d 0.9 0.9 0.9
+2d 1 1 1
 end_<Scale>
