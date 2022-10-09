@@ -40,7 +40,8 @@ def train_model(
     # Instantiate the model
     net = FullyConnected(num_classes)
     # path to save the model
-    PATH =  "real" + now + "_" + date + "_" + net.name + "" + ".pth"
+    comment = "synth" + now + "_" + date + "_" + net.name
+    PATH =  comment + ".pth"
     # print model summary
     if if_writer:
         print(summary(net, torch.zeros((batch_size, 4))))
@@ -55,7 +56,7 @@ def train_model(
     )  # 10, 15
 
     if if_writer:
-        writer = SummaryWriter(comment="real" + now + "_" + date + "_" + net.name)
+        writer = SummaryWriter(comment=comment)
 
     # train model
     for epoch in range(num_epoch):  # loop over the dataset multiple times
@@ -148,7 +149,6 @@ def train_model(
 
     # test
     # validation
-    net.eval()
     predictions = []
     raw_predictions = []
     true_label = []

@@ -24,9 +24,9 @@ def train_model(
 ):
     num_classes = 64
     batch_size = 32
-    val_batch_size = 64
+    val_batch_size = 128
 
-    train_loader = DataLoader(data_feed_synth.DataFeed(mode='train'), batch_size, shuffle=True)
+    train_loader = DataLoader(data_feed_synth.DataFeed(mode='train', num_data_point=1928), batch_size, shuffle=True)
     val_loader = DataLoader(data_feed_synth.DataFeed(mode='test'), val_batch_size, shuffle=False)
     test_loader = DataLoader(data_feed_real.DataFeed(mode='test', train_split=0), val_batch_size, shuffle=False)
 
@@ -41,7 +41,8 @@ def train_model(
     # Instantiate the model
     net = FullyConnected(num_classes)
     # path to save the model
-    PATH =  "synth" + now + "_" + date + "_" + net.name + "" + ".pth"
+    comment = "synth" + now + "_" + date + "_" + net.name
+    PATH =  comment + ".pth"
     # print model summary
     if if_writer:
         print(summary(net, torch.zeros((batch_size, 4))))
@@ -56,9 +57,9 @@ def train_model(
     )  # 10, 15
 
     if if_writer:
-        writer = SummaryWriter(comment="synth" + now + "_" + date + "_" + net.name)
+        writer = SummaryWriter(comment=comment)
 
-    '''
+    
     # train model
     for epoch in range(num_epoch):  # loop over the dataset multiple times
         net.train()
@@ -144,14 +145,13 @@ def train_model(
         writer.close()
     torch.save(net.state_dict(), PATH)
     print("Finished Training")
-    '''
-    PATH = "synth00_13_07_22_10_09_FullyConnected.pth"
+    
+    # PATH = "synth00_13_07_22_10_09_FullyConnected.pth"
     net.to(device)
     net.load_state_dict(torch.load(PATH))
 
     # test
     # validation
-    net.eval()
     predictions = []
     raw_predictions = []
     true_label = []

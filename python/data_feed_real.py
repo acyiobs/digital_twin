@@ -18,19 +18,13 @@ def create_samples(mode, train_split, num_data_point, portion):
     beam_pwr = loadmat('real_beam_pwr.mat')['real_beam_pwr']
     ue_relative_pos = loadmat('ue_relative_pos.mat')['ue_relative_pos']
     best_beams = np.argmax(beam_pwr, 1) # starts from 1
-    # ue_gps_pos = loadmat('ue_gps_pos.mat')['ue_gps_pos']
 
-    # ue_relative_pos = ue_gps_pos
-
-    # ue_relative_pos[:, 0] = (ue_relative_pos[:, 0] - ue_relative_pos[:, 0].min()) / (ue_relative_pos[:, 0].max() - ue_relative_pos[:, 0].min())
-    # ue_relative_pos[:, 1] = (ue_relative_pos[:, 1] - ue_relative_pos[:, 1].min()) / (ue_relative_pos[:, 1].max() - ue_relative_pos[:, 1].min())
-
-    tmp1 = np.arctan2(ue_relative_pos[:, 1], ue_relative_pos[:, 0]) / np.pi
-    tmp2 = np.sqrt(ue_relative_pos[:, 1]**2 + ue_relative_pos[:, 0]**2) / np.sqrt(24**2+28**2)
+    polar_anlge = np.arctan2(ue_relative_pos[:, 1], ue_relative_pos[:, 0]) / np.pi
+    polar_distance = np.sqrt(ue_relative_pos[:, 1]**2 + ue_relative_pos[:, 0]**2) / np.sqrt(24**2+28**2)
 
     ue_relative_pos = ue_relative_pos / 30.
 
-    ue_relative_pos = np.concatenate([ue_relative_pos, np.stack([tmp1, tmp2], -1)], -1)
+    ue_relative_pos = np.concatenate([ue_relative_pos, np.stack([polar_anlge, polar_distance], -1)], -1)
 
     (beam_pwr, ue_relative_pos, best_beams) = sklearn.utils.shuffle(beam_pwr, ue_relative_pos, best_beams, random_state=1115)
     
