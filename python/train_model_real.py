@@ -41,15 +41,33 @@ if __name__ == "__main__":
     all_acc = []
     all_pwr = []
 
+    # max_data_point = 1928
+    # for percentage in [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
+    #     num_data_point = int(max_data_point * percentage)
+    
+    #     train_loader = DataLoader(data_feed_real.DataFeed(mode='train', num_data_point=num_data_point), batch_size, shuffle=True)
+    #     val_loader = DataLoader(data_feed_real.DataFeed(mode='test'), val_batch_size, shuffle=False)
+    #     test_loader = DataLoader(data_feed_real.DataFeed(mode='test'), val_batch_size, shuffle=False)
+
+    #     print('percentage: '+ str(percentage))
+    #     test_loss, test_acc, test_pwr, predictions, raw_predictions, true_label, PATH = train_model_synth(num_epoch, if_writer=False)
+
+    #     all_acc.append(test_acc)
+    #     all_pwr.append(test_pwr)
+    #     # print(test_loss)
+    #     # print(test_acc)
+    #     # print(test_pwr)
+    # all_acc = np.stack(all_acc, -1)
+    # all_pwr = np.stack(all_pwr, -1)
+
     max_data_point = 1928
-    for percentage in [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
-        num_data_point = int(max_data_point * percentage)
+    for num_data_point in np.arange(10, 210, 10): #[100, 150, 200, 300, 400, 500, 600, 700, 800]
     
         train_loader = DataLoader(data_feed_real.DataFeed(mode='train', num_data_point=num_data_point), batch_size, shuffle=True)
         val_loader = DataLoader(data_feed_real.DataFeed(mode='test'), val_batch_size, shuffle=False)
         test_loader = DataLoader(data_feed_real.DataFeed(mode='test'), val_batch_size, shuffle=False)
 
-        print('percentage: '+ str(percentage))
+        print('Number of data points : '+ str(num_data_point))
         test_loss, test_acc, test_pwr, predictions, raw_predictions, true_label, PATH = train_model_synth(num_epoch, if_writer=False)
 
         all_acc.append(test_acc)
@@ -62,7 +80,7 @@ if __name__ == "__main__":
 
     print(all_acc)
     print(all_pwr)
-    savemat('all_acc_train_on_real.mat', {'all_acc_train_on_real': all_acc})
-    savemat('all_pwr_train_on_real.mat', {'all_pwr_train_on_real': all_pwr})
+    savemat('all_acc_train_on_real3.mat', {'all_acc_train_on_real3': all_acc})
+    savemat('all_pwr_train_on_real3.mat', {'all_pwr_train_on_real3': all_pwr})
     print('done')
 

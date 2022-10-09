@@ -134,11 +134,11 @@ def train_model(
             writer.add_scalar("acc/test", val_top1_acc, epoch)
     if if_writer:
         writer.close()
-    torch.save(net.state_dict(), PATH)
+        torch.save(net.state_dict(), PATH)
     print("Finished Training")
     
     net.to(device)
-    net.load_state_dict(torch.load(PATH))
+    # net.load_state_dict(torch.load(PATH))
 
     # test
     # validation
