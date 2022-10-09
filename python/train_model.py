@@ -12,39 +12,31 @@ from pytorch_model_summary import summary
 from tqdm import tqdm
 import sys
 import datetime
-from data_feed_real import DataFeed
+# from data_feed_synth import DataFeed
 from model import FullyConnected, FullyConnected2, FullyConnected3
-
+import data_feed_synth
+import data_feed_real
 
 def train_model(
+    train_loader,
+    val_loader,
+    test_loader,
+    comment,
+    num_classes = 16,
     num_epoch=200,
     if_writer=False,
-    portion=1.0,
 ):
-    num_classes = 16
-    batch_size = 32
-    val_batch_size = 64
-
-    train_loader = DataLoader(DataFeed(mode='train'), batch_size, shuffle=True)
-    val_loader = DataLoader(DataFeed(mode='test'), val_batch_size, shuffle=False)
-    test_loader = DataLoader(DataFeed(mode='test'), val_batch_size, shuffle=False)
-
     # check gpu acceleration availability
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     # Assuming that we are on a CUDA machine, this should print a CUDA device:
     print(device)
-
-    now = datetime.datetime.now().strftime("%H_%M_%S")
-    date = datetime.date.today().strftime("%y_%m_%d")
-
     # Instantiate the model
     net = FullyConnected(num_classes)
     # path to save the model
-    comment = "synth" + now + "_" + date + "_" + net.name
     PATH =  comment + ".pth"
     # print model summary
     if if_writer:
-        print(summary(net, torch.zeros((batch_size, 4))))
+        print(summary(net, torch.zeros((32, 4))))
     # send model to GPU
     net.to(device)
 
@@ -143,7 +135,7 @@ def train_model(
         writer.close()
     torch.save(net.state_dict(), PATH)
     print("Finished Training")
-
+    
     net.to(device)
     net.load_state_dict(torch.load(PATH))
 
@@ -159,7 +151,11 @@ def train_model(
         top2_correct = 0
         top3_correct = 0
         top5_correct = 0
-        val_loss = 0
+        top1_pwr = 0
+        top2_pwr = 0
+        top3_pwr = 0
+        top5_pwr = 0
+        test_loss = 0
         for (pos, label, pwr) in test_loader:
             pos = pos.to(device)
             label = label.to(device)
@@ -167,7 +163,7 @@ def train_model(
             
             outputs = net(pos)
 
-            val_loss += nn.CrossEntropyLoss(reduction="sum")(
+            test_loss += nn.CrossEntropyLoss(reduction="sum")(
                 outputs.view(-1, num_classes), label.flatten()
             ).item()
             total += label.cpu().numpy().size
@@ -181,34 +177,55 @@ def train_model(
                 top2_correct += np.isin(label[j], idx[j, :2]).sum()
                 top3_correct += np.isin(label[j], idx[j, :3]).sum()
                 top5_correct += np.isin(label[j], idx[j, :5]).sum()
+
+            for j in range(label.shape[0]):
+                max_pwr = pwr[j, label[j]]
+                top1_pwr += pwr[j, idx[j, :1]].max() / max_pwr
+                top2_pwr += pwr[j, idx[j, :2]].max() / max_pwr
+                top3_pwr += pwr[j, idx[j, :3]].max() / max_pwr
+                top5_pwr += pwr[j, idx[j, :5]].max() / max_pwr
+
+
             predictions.append(prediction.cpu().numpy())
             raw_predictions.append(outputs.cpu().numpy())
             true_label.append(label)
 
-        val_loss /= float(total)
-        val_top1_acc = top1_correct / float(total)
-        val_top2_acc = top2_correct / float(total)
-        val_top3_acc = top3_correct / float(total)
-        val_top5_acc = top5_correct / float(total)
+        test_loss /= float(total)
+        test_top1_acc = top1_correct / float(total)
+        test_top2_acc = top2_correct / float(total)
+        test_top3_acc = top3_correct / float(total)
+        test_top5_acc = top5_correct / float(total)
+
+        test_top1_pwr = top1_pwr / float(total)
+        test_top2_pwr = top2_pwr / float(total)
+        test_top3_pwr = top3_pwr / float(total)
+        test_top5_pwr = top5_pwr / float(total)
 
         predictions = np.concatenate(predictions, 0)
         raw_predictions = np.concatenate(raw_predictions, 0)
         true_label = np.concatenate(true_label, 0)
 
-        mae = np.mean(np.abs(predictions - true_label))
-
-        val_acc = {
-            "top1": val_top1_acc,
-            "top2": val_top2_acc,
-            "top3": val_top3_acc,
-            "top5": val_top5_acc,
+        test_acc = {
+            "top1": test_top1_acc,
+            "top2": test_top2_acc,
+            "top3": test_top3_acc,
+            "top5": test_top5_acc,
         }
-        return val_loss, val_acc, mae, predictions, raw_predictions, true_label
+
+        test_pwr = {
+            "top1": test_top1_pwr,
+            "top2": test_top2_pwr,
+            "top3": test_top3_pwr,
+            "top5": test_top5_pwr,
+        }
+        return test_loss, test_acc, test_pwr, predictions, raw_predictions, true_label
 
 
 if __name__ == "__main__":
     torch.manual_seed(2022)
-    num_epoch = 80
-    val_loss, val_acc, mae, predictions, raw_predictions, true_label = train_model(num_epoch, if_writer=True)
-    print(val_loss)
-    print(val_acc)
+    num_epoch = 80 # 80
+    test_loss, test_acc, test_pwr, predictions, raw_predictions, true_label = train_model(num_epoch, if_writer=False)
+    print(test_loss)
+    print(test_acc)
+    print(test_pwr)
+    print('done')

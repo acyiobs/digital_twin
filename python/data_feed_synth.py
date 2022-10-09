@@ -17,7 +17,8 @@ import sklearn
 def create_samples(mode, train_split, num_data_point, portion):
     beam_pwr = loadmat('synth_beam_power.mat')['synth_beam_power']
     ue_relative_pos = loadmat('synth_UE_loc.mat')['synth_UE_loc']
-    best_beams = np.argmax(beam_pwr, 1) # starts from 1
+    beam_pwr = beam_pwr[:, 1::4]
+    best_beams = np.argmax(beam_pwr, 1) # starts from 0
 
     polar_anlge = np.arctan2(ue_relative_pos[:, 1], ue_relative_pos[:, 0]) / np.pi
     polar_distance = np.sqrt(ue_relative_pos[:, 1]**2 + ue_relative_pos[:, 0]**2) / np.sqrt(24**2+28**2)
@@ -78,3 +79,4 @@ if __name__ == "__main__":
     (ue_relative_pos, best_beams, beam_pwr) = next(iter(val_loader))
     
     print('done')
+
