@@ -11,9 +11,8 @@ from torch.utils.tensorboard import SummaryWriter
 from pytorch_model_summary import summary
 from tqdm import tqdm
 import sys
-import datetime
-# from data_feed_synth import DataFeed
-from model import FullyConnected, FullyConnected2, FullyConnected3
+
+from model import FullyConnected
 import data_feed_synth
 import data_feed_real
 
@@ -22,7 +21,7 @@ def train_model(
     val_loader,
     test_loader,
     comment,
-    num_classes = 16,
+    num_classes=16,
     num_epoch=200,
     if_writer=False,
 ):
@@ -33,6 +32,7 @@ def train_model(
     # Instantiate the model
     net = FullyConnected(num_classes)
     # path to save the model
+    comment = comment + "_" + net.name
     PATH =  comment + ".pth"
     # print model summary
     if if_writer:
@@ -80,52 +80,53 @@ def train_model(
                 tepoch.set_postfix(log)
             scheduler.step()
 
-            # validation
-            predictions = []
-            net.eval()
-            with torch.no_grad():
-                total = 0
-                top1_correct = 0
-                top2_correct = 0
-                top3_correct = 0
-                top5_correct = 0
-                val_loss = 0
-                for (pos, label, pwr) in val_loader:
-                    pos = pos.to(device)
-                    label = label.to(device)
-                    optimizer.zero_grad()
-                    
-                    outputs = net(pos)
-                    
-                    val_loss += nn.CrossEntropyLoss(reduction="sum")(
-                        outputs.view(-1, num_classes), label.flatten()
-                    ).item()
+            if if_writer:
+                # validation
+                predictions = []
+                net.eval()
+                with torch.no_grad():
+                    total = 0
+                    top1_correct = 0
+                    top2_correct = 0
+                    top3_correct = 0
+                    top5_correct = 0
+                    val_loss = 0
+                    for (pos, label, pwr) in val_loader:
+                        pos = pos.to(device)
+                        label = label.to(device)
+                        optimizer.zero_grad()
+                        
+                        outputs = net(pos)
+                        
+                        val_loss += nn.CrossEntropyLoss(reduction="sum")(
+                            outputs.view(-1, num_classes), label.flatten()
+                        ).item()
 
-                    total += label.cpu().numpy().size
-                    prediction = torch.argmax(outputs, dim=-1)
-                    top1_correct += torch.sum(prediction == label, dim=-1).cpu().numpy()
-                    _, idx = torch.topk(outputs, 5, dim=-1)
-                    idx = idx.cpu().numpy()
-                    label = label.cpu().numpy()
-                    for j in range(label.shape[0]):
-                        top2_correct += np.isin(label[j], idx[j, :2]).sum()
-                        top3_correct += np.isin(label[j], idx[j, :3]).sum()
-                        top5_correct += np.isin(label[j], idx[j, :5]).sum()
-                    predictions.append(prediction.cpu().numpy())
+                        total += label.cpu().numpy().size
+                        prediction = torch.argmax(outputs, dim=-1)
+                        top1_correct += torch.sum(prediction == label, dim=-1).cpu().numpy()
+                        _, idx = torch.topk(outputs, 5, dim=-1)
+                        idx = idx.cpu().numpy()
+                        label = label.cpu().numpy()
+                        for j in range(label.shape[0]):
+                            top2_correct += np.isin(label[j], idx[j, :2]).sum()
+                            top3_correct += np.isin(label[j], idx[j, :3]).sum()
+                            top5_correct += np.isin(label[j], idx[j, :5]).sum()
+                        predictions.append(prediction.cpu().numpy())
 
-                val_loss /= float(total)
-                val_top1_acc = top1_correct / float(total)
-                val_top2_acc = top2_correct / float(total)
-                val_top3_acc = top3_correct / float(total)
-                val_top5_acc = top5_correct / float(total)
-                print("val_loss={:.4f}".format(val_loss), flush=True)
-                print("accuracy", flush=True)
-                print(
-                    np.stack(
-                        [val_top1_acc, val_top2_acc, val_top3_acc, val_top5_acc], 0
-                    ),
-                    flush=True,
-                )
+                    val_loss /= float(total)
+                    val_top1_acc = top1_correct / float(total)
+                    val_top2_acc = top2_correct / float(total)
+                    val_top3_acc = top3_correct / float(total)
+                    val_top5_acc = top5_correct / float(total)
+                    print("val_loss={:.4f}".format(val_loss), flush=True)
+                    print("accuracy", flush=True)
+                    print(
+                        np.stack(
+                            [val_top1_acc, val_top2_acc, val_top3_acc, val_top5_acc], 0
+                        ),
+                        flush=True,
+                    )
         if if_writer:
             writer.add_scalar("Loss/train", running_loss, epoch)
             writer.add_scalar("Loss/test", val_loss, epoch)
@@ -196,35 +197,35 @@ def train_model(
         test_top3_acc = top3_correct / float(total)
         test_top5_acc = top5_correct / float(total)
 
-        test_top1_pwr = top1_pwr / float(total)
-        test_top2_pwr = top2_pwr / float(total)
-        test_top3_pwr = top3_pwr / float(total)
-        test_top5_pwr = top5_pwr / float(total)
+        test_top1_pwr = top1_pwr.cpu().numpy() / float(total)
+        test_top2_pwr = top2_pwr.cpu().numpy() / float(total)
+        test_top3_pwr = top3_pwr.cpu().numpy() / float(total)
+        test_top5_pwr = top5_pwr.cpu().numpy() / float(total)
 
         predictions = np.concatenate(predictions, 0)
         raw_predictions = np.concatenate(raw_predictions, 0)
         true_label = np.concatenate(true_label, 0)
 
-        test_acc = {
-            "top1": test_top1_acc,
-            "top2": test_top2_acc,
-            "top3": test_top3_acc,
-            "top5": test_top5_acc,
-        }
+        test_acc = np.asarray([
+            test_top1_acc,
+            test_top2_acc,
+            test_top3_acc,
+            test_top5_acc
+        ])
 
-        test_pwr = {
-            "top1": test_top1_pwr,
-            "top2": test_top2_pwr,
-            "top3": test_top3_pwr,
-            "top5": test_top5_pwr,
-        }
-        return test_loss, test_acc, test_pwr, predictions, raw_predictions, true_label
+        test_pwr = np.asarray([
+            test_top1_pwr,
+            test_top2_pwr,
+            test_top3_pwr,
+            test_top5_pwr
+        ])
+        return test_loss, test_acc, test_pwr, predictions, raw_predictions, true_label, PATH
 
 
 if __name__ == "__main__":
     torch.manual_seed(2022)
     num_epoch = 80 # 80
-    test_loss, test_acc, test_pwr, predictions, raw_predictions, true_label = train_model(num_epoch, if_writer=False)
+    test_loss, test_acc, test_pwr, predictions, raw_predictions, true_label, PATH = train_model(num_epoch, if_writer=False)
     print(test_loss)
     print(test_acc)
     print(test_pwr)
