@@ -14,8 +14,8 @@ F_CB(:, end) = 0;
 % F_CB = flip(F_CB, 2);
 % F_CB = flip(F_CB, 1);
 
-F_CB = F_CB(:,2:4:64);
-real_beam_pwr = real_beam_pwr(:, 2:4:64);
+F_CB = F_CB(:,1:1:64); %F_CB(:,2:4:64);
+real_beam_pwr = real_beam_pwr(:, 1:1:64); %real_beam_pwr(:, 2:4:64);
 num_beam = size(real_beam_pwr, 2);
 
 dataset_synth = DeepMIMO_dataset{1,1}.user;
