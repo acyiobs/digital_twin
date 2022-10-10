@@ -24,6 +24,8 @@ def train_model(
     num_classes=16,
     num_epoch=200,
     if_writer=False,
+    model_path = None,
+    lr=1e-2
 ):
     # check gpu acceleration availability
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -31,6 +33,9 @@ def train_model(
     print(device)
     # Instantiate the model
     net = FullyConnected(num_classes)
+    if model_path:
+        net.load_state_dict(torch.load(model_path))
+
     # path to save the model
     comment = comment + "_" + net.name
     PATH =  comment + ".pth"
@@ -42,7 +47,7 @@ def train_model(
 
     # set up loss function and optimizer
     criterion = nn.CrossEntropyLoss()
-    optimizer = torch.optim.Adam(net.parameters(), lr=1e-2)
+    optimizer = torch.optim.Adam(net.parameters(), lr=lr)
     scheduler = torch.optim.lr_scheduler.MultiStepLR(
         optimizer, milestones=[20, 40, 60], gamma=0.2
     )  # 10, 15
