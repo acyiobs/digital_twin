@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
         for num_data_point in range(5, 101, 5):
             dataset_real_train = DataFeed(pos_path=real_pos_path, beam_pwr_path=real_beam_pwr_path, rand_state=rand_state, mode='train', num_data_point=num_data_point)
-            real_train_loader = DataLoader(dataset_real_train, batch_size=batch_size, shuffle=True)
+            real_train_loader = DataLoader(dataset_real_train, batch_size=8, shuffle=True)
 
             print('Number of data points : '+ str(num_data_point))
             test_loss, test_acc, test_pwr, predictions, raw_predictions, true_label, PATH = train_model(
@@ -84,8 +84,8 @@ if __name__ == "__main__":
 
     print(all_acc)
     print(all_pwr)
-    savemat('all_acc_train_on_transfer_final.mat', {'all_acc_train_on_transfer_final': all_acc})
-    savemat('all_pwr_train_on_transfer_final.mat', {'all_pwr_train_on_transfer_final': all_pwr})
+    savemat('all_acc_train_on_transfer_final_batch8.mat', {'all_acc_train_on_transfer_final_batch8': all_acc})
+    savemat('all_pwr_train_on_transfer_final_batch8.mat', {'all_pwr_train_on_transfer_final_batch8': all_pwr})
     print('done')
 
 
