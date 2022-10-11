@@ -22,14 +22,14 @@ if __name__ == "__main__":
     date = datetime.date.today().strftime("%y_%m_%d")
     comment = "synth" + now + "_" + date
     num_epoch = 80
-    batch_size = 32
+    batch_size = 8
     val_batch_size =128
 
     all_acc = []
     all_pwr = []
 
     max_data_point = 1928
-    for num_data_point in np.arange(10, 210, 10): #[100, 150, 200, 300, 400, 500, 600, 700, 800]
+    for num_data_point in np.arange(5, 101, 5): #[100, 150, 200, 300, 400, 500, 600, 700, 800]
         acc = []
         pwr = []
         for _ in range(30):
@@ -68,7 +68,7 @@ if __name__ == "__main__":
 
     print(all_acc)
     print(all_pwr)
-    savemat('all_acc_train_on_real4.mat', {'all_acc_train_on_real4': all_acc})
-    savemat('all_pwr_train_on_real4.mat', {'all_pwr_train_on_real4': all_pwr})
+    savemat('all_acc_train_on_real_compare_to_transfer2.mat', {'all_acc_train_on_real_compare_to_transfer2': all_acc})
+    savemat('all_pwr_train_on_real_compare_to_transfer2.mat', {'all_pwr_train_on_real_compare_to_transfer2': all_pwr})
     print('done')
 

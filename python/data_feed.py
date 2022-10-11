@@ -45,7 +45,7 @@ def create_samples(pos_path, beam_pwr_path, rand_state, mode, train_split, num_d
         best_beams = best_beams[num_data:, ...]
         beam_pwr = beam_pwr[num_data:, ...]
     
-    if not num_data_point:
+    if num_data_point is None:
         num_data_point = best_beams.size
     if best_beams.size < num_data_point:
         raise Exception("Not enough data point!")

@@ -30,7 +30,7 @@ if __name__ == "__main__":
     all_pwr = []
 
     max_data_point = 1928
-    for num_data_point in np.arange(10, 210, 10): #np.arange(10, 210, 10): #[100, 150, 200, 300, 400, 500, 600, 700, 800]
+    for num_data_point in range(1,21,2): #np.arange(10, 210, 10): #[100, 150, 200, 300, 400, 500, 600, 700, 800]
         acc = []
         pwr = []
         for _ in range(30):
@@ -71,7 +71,6 @@ if __name__ == "__main__":
 
     print(all_acc)
     print(all_pwr)
-    savemat('all_acc_train_on_transfer.mat', {'all_acc_train_on_transfer': all_acc})
-    savemat('all_pwr_train_on_transfer.mat', {'all_pwr_train_on_transfer': all_pwr})
+    savemat('all_acc_train_on_transfer_small.mat', {'all_acc_train_on_transfer_small': all_acc})
+    savemat('all_pwr_train_on_transfer_small.mat', {'all_pwr_train_on_transfer_small': all_pwr})
     print('done')
-
