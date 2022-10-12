@@ -18,33 +18,46 @@ if __name__ == "__main__":
     synth_pos_path = 'synth_UE_loc.mat'
 
     torch.manual_seed(2022)
-    now = datetime.datetime.now().strftime("%H_%M_%S")
-    date = datetime.date.today().strftime("%y_%m_%d")
-    comment = "transfer" + now + "_" + date
-    num_epoch = 40
+    
     batch_size = 32
     val_batch_size =128
-    model_path = 'synth02_07_06_22_10_10_FullyConnected.pth'
 
     all_acc = []
     all_pwr = []
 
     max_data_point = 1928
-    for num_data_point in range(1,21,2): #np.arange(10, 210, 10): #[100, 150, 200, 300, 400, 500, 600, 700, 800]
+    for _ in range(30):
+        now = datetime.datetime.now().strftime("%H_%M_%S")
+        date = datetime.date.today().strftime("%y_%m_%d")
+        comment = "transfer" + now + "_" + date
+        rand_state = int(torch.randint(low=1, high=2000, size=(1,)))
         acc = []
         pwr = []
-        for _ in range(30):
-            rand_state = int(torch.randint(low=1, high=2000, size=(1,)))
+         
+        
+        dataset_real_test = DataFeed(pos_path=real_pos_path, beam_pwr_path=real_beam_pwr_path, rand_state=rand_state, mode='test')
+        dataset_synth_train = DataFeed(pos_path=synth_pos_path, beam_pwr_path=synth_beam_pwr_path, rand_state=rand_state, mode='train', num_data_point=200)
 
+        real_test_loader = DataLoader(dataset_real_test, val_batch_size, shuffle=False)
+        synth_train_loader = DataLoader(dataset_synth_train, batch_size=batch_size, shuffle=True)
+
+        test_loss, test_acc, test_pwr, predictions, raw_predictions, true_label, PATH = train_model(
+            train_loader=synth_train_loader,
+            val_loader=real_test_loader,
+            test_loader=real_test_loader,
+            comment=comment,
+            num_classes=16,
+            num_epoch=80,
+            if_writer=True,
+            )
+        acc.append(test_acc)
+        pwr.append(test_pwr)
+        
+        model_path = PATH
+
+        for num_data_point in range(5, 101, 5):
             dataset_real_train = DataFeed(pos_path=real_pos_path, beam_pwr_path=real_beam_pwr_path, rand_state=rand_state, mode='train', num_data_point=num_data_point)
-            dataset_real_test = DataFeed(pos_path=real_pos_path, beam_pwr_path=real_beam_pwr_path, rand_state=rand_state, mode='test')
-            dataset_synth_train = DataFeed(pos_path=synth_pos_path, beam_pwr_path=synth_beam_pwr_path, rand_state=rand_state, mode='train', num_data_point=num_data_point)
-            dataset_synth_test = DataFeed(pos_path=synth_pos_path, beam_pwr_path=synth_beam_pwr_path, rand_state=rand_state, mode='test')
-
-            real_train_loader = DataLoader(dataset_real_train, batch_size=batch_size, shuffle=True)
-            real_test_loader = DataLoader(dataset_real_test, val_batch_size, shuffle=False)
-            synth_train_loader = DataLoader(dataset_synth_train, batch_size=batch_size, shuffle=True)
-            synth_test_loader = DataLoader(dataset_synth_test, val_batch_size, shuffle=False)
+            real_train_loader = DataLoader(dataset_real_train, batch_size=8, shuffle=True)
 
             print('Number of data points : '+ str(num_data_point))
             test_loss, test_acc, test_pwr, predictions, raw_predictions, true_label, PATH = train_model(
@@ -53,7 +66,7 @@ if __name__ == "__main__":
                 test_loader=real_test_loader,
                 comment=comment,
                 num_classes=16,
-                num_epoch=num_epoch,
+                num_epoch=40,
                 if_writer=False,
                 model_path=model_path,
                 lr=1e-4,
@@ -66,11 +79,13 @@ if __name__ == "__main__":
         all_acc.append(acc)
         all_pwr.append(pwr)
 
-    all_acc = np.stack(all_acc, -1)
-    all_pwr = np.stack(all_pwr, -1)
+    all_acc = np.stack(all_acc, -1).swapaxes(-1, -2)
+    all_pwr = np.stack(all_pwr, -1).swapaxes(-1, -2)
 
     print(all_acc)
     print(all_pwr)
-    savemat('all_acc_train_on_transfer_small.mat', {'all_acc_train_on_transfer_small': all_acc})
-    savemat('all_pwr_train_on_transfer_small.mat', {'all_pwr_train_on_transfer_small': all_pwr})
+    savemat('all_acc_train_on_transfer_final_batch8.mat', {'all_acc_train_on_transfer_final_batch8': all_acc})
+    savemat('all_pwr_train_on_transfer_final_batch8.mat', {'all_pwr_train_on_transfer_final_batch8': all_pwr})
     print('done')
+
+

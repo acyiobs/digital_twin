@@ -24,5 +24,5 @@ xlabel('Number of Real Data Points Used for Training');
 ylabel('Accuracy / Relative Receive Power');
 
 ylim([0, 1]);
-legend( 'Acc. (transfer learining)', 'Power (transfer learining)');
-% legend('Acc. (trained on real)', 'Power (trained on real)', 'Acc. (transfer_final learining)', 'Power (transfer_final learining)');
+% legend( 'Acc. (transfer learining)', 'Power (transfer learining)');
+legend('Acc. (trained on real)', 'Power (trained on real)', 'Acc. (transfer learining)', 'Power (transfer learining)');
