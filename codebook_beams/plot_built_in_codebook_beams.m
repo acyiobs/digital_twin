@@ -29,7 +29,7 @@ num_of_angle = length(beam_pattern);
 %%
 fig_count = 1;
 f = figure(fig_count);
-for ii = 1:4:num_of_beam
+for ii = 1:num_of_beam
     polarplot(linspace(angle_start, angle_end, num_of_angle), codebook_pattern(ii, :),  'linewidth', 1.2)
     fig_count = fig_count + 1;
     grid on
