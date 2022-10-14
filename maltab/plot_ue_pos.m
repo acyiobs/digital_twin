@@ -1,6 +1,6 @@
-load('E:\Shuaifeng-Jiang\GitHub\digital_twin\DeepMIMOv2\deepsense_s1_synth_v3_interval_0p1.mat');
-load('E:\Shuaifeng-Jiang\GitHub\digital_twin\real_beam_pwr.mat');
-load('E:\Shuaifeng-Jiang\GitHub\digital_twin\ue_relative_pos.mat');
+load('DeepMIMOv2\deepsense_s1_synth_v3_interval_0p1.mat');
+load('real_beam_pwr.mat');
+load('ue_relative_pos.mat');
 
 figure(1);
 

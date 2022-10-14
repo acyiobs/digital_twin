@@ -1,7 +1,7 @@
-load('E:\Shuaifeng-Jiang\GitHub\digital_twin\DeepMIMOv2\deepsense_s1_synth_v3_interval_0p1.mat');
-load('E:\Shuaifeng-Jiang\GitHub\digital_twin\real_beam_pwr.mat');
-load('E:\Shuaifeng-Jiang\GitHub\digital_twin\ue_relative_pos.mat');
-load('E:\Shuaifeng-Jiang\GitHub\digital_twin\codebook_beams\beam_angles.mat');
+load('DeepMIMOv2\deepsense_s1_synth_v3_interval_0p1.mat');
+load('real_beam_pwr.mat');
+load('ue_relative_pos.mat');
+load('codebook_beams\beam_angles.mat');
 
 %% get best beam in the digital twin
 %[F_CB, all_beams] = UPA_codebook_generator_abdul(16,1,1,4,1,1,0.5);
@@ -14,8 +14,8 @@ F_CB(:, end) = 0;
 % F_CB = flip(F_CB, 2);
 % F_CB = flip(F_CB, 1);
 
-F_CB = F_CB(:,1:1:64); %F_CB(:,2:4:64);
-real_beam_pwr = real_beam_pwr(:, 1:1:64); %real_beam_pwr(:, 2:4:64);
+F_CB = F_CB(:,:); %F_CB(:,2:4:64);
+real_beam_pwr = real_beam_pwr(:, :); %real_beam_pwr(:, 2:4:64);
 num_beam = size(real_beam_pwr, 2);
 
 dataset_synth = DeepMIMO_dataset{1,1}.user;
@@ -80,11 +80,13 @@ for UE_subsample=[1] % 1:50
     top1_acc = zeros(size(real_beam_pwr, 1), 1);
     top2_acc = zeros(size(real_beam_pwr, 1), 1);
     top3_acc = zeros(size(real_beam_pwr, 1), 1);
+    top4_acc = zeros(size(real_beam_pwr, 1), 1);
     top5_acc = zeros(size(real_beam_pwr, 1), 1);
 
     top1_pwr = zeros(size(real_beam_pwr, 1), 1);
     top2_pwr = zeros(size(real_beam_pwr, 1), 1);
     top3_pwr = zeros(size(real_beam_pwr, 1), 1);
+    top4_pwr = zeros(size(real_beam_pwr, 1), 1);
     top5_pwr = zeros(size(real_beam_pwr, 1), 1);
 
     for i=1:size(real_beam_pwr, 1)
@@ -98,17 +100,19 @@ for UE_subsample=[1] % 1:50
         top1_acc(i) = any(nearest_neighbor_pwr(1:1, 2) == real_best_idx);
         top2_acc(i) = any(nearest_neighbor_pwr(1:2, 2) == real_best_idx);
         top3_acc(i) = any(nearest_neighbor_pwr(1:3, 2) == real_best_idx);
+        top4_acc(i) = any(nearest_neighbor_pwr(1:4, 2) == real_best_idx);
         top5_acc(i) = any(nearest_neighbor_pwr(1:5, 2) == real_best_idx);
 
         top1_pwr(i) = max(real_beam_pwr(i, nearest_neighbor_pwr(1:1, 2))) / real_best_pwr;
         top2_pwr(i) = max(real_beam_pwr(i, nearest_neighbor_pwr(1:2, 2))) / real_best_pwr;
         top3_pwr(i) = max(real_beam_pwr(i, nearest_neighbor_pwr(1:3, 2))) / real_best_pwr;
+        top4_pwr(i) = max(real_beam_pwr(i, nearest_neighbor_pwr(1:4, 2))) / real_best_pwr;
         top5_pwr(i) = max(real_beam_pwr(i, nearest_neighbor_pwr(1:5, 2))) / real_best_pwr;
     end
     UE_subsample
     mean(top1_acc)
-    topk_acc = [mean(top1_acc), mean(top2_acc), mean(top3_acc), mean(top5_acc)]
-    topk_pwr = [mean(top1_pwr), mean(top2_pwr), mean(top3_pwr), mean(top5_pwr)]
+    topk_acc = [mean(top1_acc), mean(top2_acc), mean(top3_acc), mean(top4_acc), mean(top5_acc)]
+    topk_pwr = [mean(top1_pwr), mean(top2_pwr), mean(top3_pwr), mean(top4_pwr), mean(top5_pwr)]
     mean_idx_diff = mean(abs(idx_diff))
     
 % tmp = [tmp, mean(top1_acc)];
@@ -139,8 +143,16 @@ xlim([0,200])
 
 %% topk acc and pwr bar plot
 figure(2);
-bar(categorical({'Accuracy' 'Relative Power'}), [topk_acc;topk_pwr]);
+plot(topk_acc, '--s', "Color", "#0072BD");
+hold on;
+plot(topk_pwr, '-o', "Color", "#0072BD");
+xticks([1,2,3,4,5])
+xticklabels({'top-1','top-2','top-3','top-4','top-5'})
 grid on;
-legend('top1', 'top2', 'top3', 'top5');
+legend('Accuracy', 'Relative Receive Power');
+xlabel('Top-k Beams');
+ylabel('Accuracy or Relative Receive Power');
+
+
 
 
