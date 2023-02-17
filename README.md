@@ -1,5 +1,5 @@
 # Digital Twin Based Beam Prediction: Can we Train in the Digital World and Deploy in Reality?
-This is a python code package related to the following article:
+This is a code package related to the following article:
 S. Jiang and A. Alkhateeb, "[Digital Twin Based Beam Prediction: Can we Train in the Digital World and Deploy in Reality?](https://arxiv.org/abs/2301.07682)".
 
 # Abstract of the Article
