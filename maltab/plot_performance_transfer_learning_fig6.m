@@ -35,7 +35,17 @@ ylabel('Accuracy / Relative Receive Power');
 ylim([0.25, 1]);
 legend('Acc. (trained on real)', 'Power (trained on real)', ...
     'Acc. (transfer learining) measured codebook', 'Power (transfer learining) measured codebook', ...
-    'Acc. (transfer learining) unifrom codebook', 'Power (transfer learining) unifrom codebook');
+    'Acc. (transfer learining) uniform codebook', 'Power (transfer learining) uniform codebook');
 
+% axes('Position',[.2 .2 .2 .2])
+% box on
+% plot(0:5:20, all_acc_train_on_transfer_measured(2, 1:5), '--s', "Color", "#7e2f8e");
+% hold on
+% plot(0:5:20, all_pwr_train_on_transfer_measured(2, 1:5), '-o', "Color", "#7e2f8e");
+% grid on
+% plot(0:5:20, all_acc_train_on_transfer_uniform(2, 1:5), '--s', "Color", "#946801");
+% hold on
+% plot(0:5:20, all_pwr_train_on_transfer_uniform(2, 1:5), '-o', "Color", "#946801");
+% grid on
 
 
